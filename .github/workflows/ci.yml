@@ -13,5 +13,5 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
       with:
-        topic-file: 'example/nextjs/fundamentals.md'
+        topic-file: 'nextjs/fundamentals.md'
         output-dir: 'docs'
