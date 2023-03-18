@@ -8,6 +8,7 @@ on:
       - main
 env:
   OPENAI_ENGINE: ${{ vars.OPENAI_ENGINE }}
+  OPENAI_ENGINE_REP: ${{ vars.OPENAI_ENGINE_REP }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +16,8 @@ jobs:
     - name: 'Test'
       run: | 
         echo "variable from shell environment : $OPENAI_ENGINE"
+        echo "variable from repository var : $OPENAI_ENGINE_REP"
+
     - uses: actions/checkout@v2
     - uses: ./
       with:
