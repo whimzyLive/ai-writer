@@ -65,4 +65,6 @@ def generate_response(input_file, output_dir):
 
     f = open(out_file, 'w')
 
+    print(f"Writing to file {out_file}")
+
     f.write(response.choices[0].text)
