@@ -3,13 +3,15 @@
 import sys
 import getopt
 import gpt
+import os
 
 # defining a function to create the prompt from the system message and the messages
 
 
 def main(argv):
-    input_file = ''
-    output_dir = ''
+    input_file = os.getenv('INPUT_TOPIC_FILE', "")
+    output_dir = os.getenv('INPUT_OUTPUT_DIR', "")
+
     opts, args = getopt.getopt(argv, "hi:o:", ["input_file=", "output_dir="])
     for opt, arg in opts:
         if opt == '-h':

@@ -13,10 +13,11 @@ def generate_response(input_file, output_dir):
     # defining the system message
     system_message_template = "<|im_start|>system\n{}\n<|im_end|>"
     system_message = system_message_template.format(
-        "You are a William Shakespeare style blog writer")
+        "You are a William Shakespeare style blog writer who writes programming guides in easy to understand manner."
+    )
 
     # create topic text template
-    topic_text_template = "Write an blog post in github flavoured markdown with code examples on {}\n{}"
+    topic_text_template = "Write a blog post on {}\n covering following topics and their basics\n{}.\nFollow Github flavoured Markdown specifications, add appropriate headings to each section and always include code examples."
     extracted_dict = util.read_topic_and_content(input_file)
     topic_title = extracted_dict.get("topic_title")
     topic_content = extracted_dict.get("topic_content")
