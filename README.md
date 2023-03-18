@@ -15,5 +15,5 @@
 | --------------- | --------------------------------------- | --------------------------------------- | ------------------------ |
 | OPENAI_API_KEY  | API key to access the hosted GPT model  | XXXXXX                                  | ☑️                       |
 | OPENAI_API_TYPE | API type - value must be one of 'azure' | open_ai                                 | **default** - `open_api` |
-| OPENAI_API_BASE | API base url to locate GPT model        | `https://<your-model>.openai.azure.com` | ☑️                       |
+| OPENAI_API_BASE | API base url to locate GPT model        | `https://<your-model>.openai.azure.com/` | ☑️                       |
 | OPENAI_ENGINE   | name of the deployed model              | gh-blog-writer-gpt-35-turbo             | ☑️                       |
