@@ -12,6 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./
+      env:
+        OPENAI_ENGINE: ${{vars.OPENAI_ENGINE}}
       with:
         topic-file: 'nextjs/fundamentals.md'
         output-dir: 'docs'
