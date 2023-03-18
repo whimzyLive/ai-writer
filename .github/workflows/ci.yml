@@ -32,4 +32,9 @@ jobs:
         topic-files: ${{ steps.changed-files.outputs.all_changed_files }}
         output-dir: 'docs'
         remove-prefix: 'examples/'
+    - uses: ./
+      with:
+        topic-files: examples/nextjs/fundamentals.md
+        output-dir: 'docs'
+        remove-prefix: 'examples/'
     - uses: stefanzweifel/git-auto-commit-action@v4
