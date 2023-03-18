@@ -7,17 +7,14 @@ on:
     branches:
       - main
 env:
+  OPENAI_API_TYPE: ${{ vars.OPENAI_API_TYPE }}
+  OPENAI_API_BASE: ${{ vars.OPENAI_API_BASE }}
   OPENAI_ENGINE: ${{ vars.OPENAI_ENGINE }}
-  OPENAI_ENGINE_REP: ${{ vars.OPENAI_ENGINE_REP }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: 'Test'
-      run: | 
-        echo "variable from shell environment : $OPENAI_ENGINE"
-        echo "variable from repository var : $OPENAI_ENGINE_REP"
-
     - uses: actions/checkout@v2
     - uses: ./
       with:
