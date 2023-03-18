@@ -12,7 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./
-      run: ls -la
-      # with:
-      #   topic-file: 'example/nextjs/fundamentals.md'
-      #   output-dir: 'docs'
+      with:
+        topic-file: 'example/nextjs/fundamentals.md'
+        output-dir: 'docs'
