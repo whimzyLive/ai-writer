@@ -12,8 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - run: | 
-      echo "variable from shell environment : $OPENAI_ENGINE"
+    - name: 'Test'
+      run: | 
+        echo "variable from shell environment : $OPENAI_ENGINE"
     - uses: actions/checkout@v2
     - uses: ./
       with:
