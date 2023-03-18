@@ -3,13 +3,16 @@ import os
 import sys
 import util
 
-openai.api_type = "azure"
-openai.api_base = "https://personal-blog-writer.openai.azure.com/"
-openai.api_version = "2022-12-01"
 max_tokens = 4000
 
 
 def generate_response(input_file, output_dir):
+    gpt_engine = os.getenv('OPENAI_ENGINE', "")
+
+    if (gpt_engine == ""):
+        print('Missing required value for environment "OPENAI_ENGINE"')
+        sys.exit()
+
     # defining the system message
     system_message_template = "<|im_start|>system\n{}\n<|im_end|>"
     system_message = system_message_template.format(
@@ -17,7 +20,7 @@ def generate_response(input_file, output_dir):
     )
 
     # create topic text template
-    topic_text_template = "Write a blog post on {}\n covering following topics and their basics\n{}.\nFollow Github flavoured Markdown specifications, add appropriate headings to each section and always include code examples."
+    topic_text_template = "Write a blog post on {}\n covering following topics and their basics\n{}.\nFollow Github flavoured Markdown specifications, add appropriate headings and always include code examples. Generated blog must comply with https://github.com/DavidAnson/markdownlint"
     extracted_dict = util.read_topic_and_content(input_file)
     topic_title = extracted_dict.get("topic_title")
     topic_content = extracted_dict.get("topic_content")
@@ -46,7 +49,7 @@ def generate_response(input_file, output_dir):
     #     "Max Byte pair encoding token length of generated text should not exceed {} tokens".format(max_tokens - prompt_token_count))
 
     response = openai.Completion.create(
-        engine="test",
+        engine=gpt_engine,
         prompt=util.create_prompt(system_message, messages),
         temperature=1,
         max_tokens=max_tokens,

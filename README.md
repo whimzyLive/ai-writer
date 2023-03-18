@@ -1,3 +1,19 @@
-# Personal Blog Writer - Powered by chatGPT
+# AI Blog Writer - Powered by ChatGPT
 
-Coming soon...
+## Using as a Github Actions
+
+### Action Inputs
+
+| Name       | Description                    | Example                | Required          |
+| ---------- | ------------------------------ | ---------------------- | ----------------- |
+| topic-file | File to a topic or description | nextjs/fundamentals.md | ☑️                |
+| output-dir | .temp                          | .out                   | **default** - out |
+
+### Environment variables
+
+| Name            | Description                             | Example                               | Required |
+| --------------- | --------------------------------------- | ------------------------------------- | -------- | ---------------------- |
+| OPENAI_API_KEY  | API key to access the hosted GPT model  | XXXXXX                                | ☑️       |
+| OPENAI_API_TYPE | API type - value must be one of 'azure' | open_ai                               |          | **default** - open_api |
+| OPENAI_API_BASE | API base url to locate GPT model        | https://<your-model>.openai.azure.com | ☑️       |
+| OPENAI_ENGINE   | name of the deployed model              | gh-blog-writer-gpt-35-turbo           | ☑️       |
