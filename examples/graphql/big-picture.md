@@ -1,4 +1,4 @@
-# GraphQL: The Big Picture
+# GraphQL - The Big Picture
 
 ## Introduction
 
