@@ -1,0 +1,19 @@
+name: 'Continuous Integration'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./        
+      with:
+        topic-file: 'example/nextjs/fundamentals.md'
+        output-dir: 'docs'
+      run: | 
+          echo 'Blog writer is configured to use ${{env.OPENAI_API_BASE}}'
