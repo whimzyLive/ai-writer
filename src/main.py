@@ -11,6 +11,7 @@ import os
 def main(argv):
     input_files = os.getenv('INPUT_TOPIC-FILES', "").split(",")
     output_dir = os.getenv('INPUT_OUTPUT-DIR', "")
+    remove_prefix = os.getenv('INPUT_REMOVE-PREFIX', "")
 
     opts, args = getopt.getopt(argv, "hi:o:", ["input_file=", "output_dir="])
     for opt, arg in opts:
@@ -27,6 +28,8 @@ def main(argv):
                 input_files.append(arg)
         elif opt in ("-o", "--output_dir"):
             output_dir = arg
+        elif opt in ("-rp", "--remove_prefix"):
+            remove_prefix = arg
 
     input_files = list(filter(None, input_files))
     if (len(input_files) == 0):
@@ -39,7 +42,7 @@ def main(argv):
     print(f"Files detected: {input_files}")
 
     for input_file in input_files:
-        gpt.generate_response(input_file, output_dir)
+        gpt.generate_response(input_file, output_dir, remove_prefix)
 
 
 if __name__ == "__main__":

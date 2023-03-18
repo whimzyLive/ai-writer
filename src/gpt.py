@@ -6,7 +6,7 @@ import util
 max_tokens = 4000
 
 
-def generate_response(input_file, output_dir):
+def generate_response(input_file, output_dir, remove_prefix):
     gpt_engine = os.getenv('OPENAI_ENGINE', "")
 
     if (gpt_engine == ""):
@@ -58,7 +58,8 @@ def generate_response(input_file, output_dir):
         presence_penalty=0,
         stop=["<|im_end|>"])
 
-    out_file = os.path.join(output_dir, input_file)
+    out_file = os.path.join(output_dir, input_file.removeprefix(remove_prefix))
+    print(f"writing file at {out_file}...")
     os.makedirs(os.path.dirname(out_file), exist_ok=True)
 
     f = open(out_file, 'w')

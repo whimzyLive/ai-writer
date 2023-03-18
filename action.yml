@@ -7,12 +7,12 @@ inputs:
   output-dir:  # Output dir to write generated blog (when an file is written to the specified output, file name structure is preserved)
     description: '"output-dir" represents the name of the folder where the blog will be written - always writes in github flavoured markdown'
     default: ".out"
+  remove-prefix:
+    description: '"output-dir" represents Prefix to remove from input dir location (i.e if input files are under examples/x.md, this can be 'examples/')'
+    default: ".out"    
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.topic-files }}
-    - ${{ inputs.output-dir }}
 branding:
   icon: 'cpu'
   color: 'gray-dark'
