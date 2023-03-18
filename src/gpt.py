@@ -58,8 +58,6 @@ def generate_response(input_file, output_dir):
         presence_penalty=0,
         stop=["<|im_end|>"])
 
-    print(response)
-
     out_file = os.path.join(output_dir, input_file)
     os.makedirs(os.path.dirname(out_file), exist_ok=True)
 
