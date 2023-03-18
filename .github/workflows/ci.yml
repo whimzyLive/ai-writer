@@ -29,6 +29,6 @@ jobs:
     - if: steps.changed-files.outputs.any_changed == 'true'
       uses: ./
       with:
-        topic-file: steps.changed-files.outputs.all_changed_files
+        topic-files: steps.changed-files.outputs.all_changed_files
         output-dir: 'docs'
     - uses: stefanzweifel/git-auto-commit-action@v4

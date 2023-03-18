@@ -11,7 +11,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.topic-file }}
+    - ${{ inputs.topic-files }}
     - ${{ inputs.output-dir }}
 branding:
   icon: 'cpu'

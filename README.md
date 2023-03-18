@@ -4,10 +4,10 @@
 
 ### Action Inputs
 
-| Name       | Description                    | Example                | Required             |
-| ---------- | ------------------------------ | ---------------------- | -------------------- |
-| topic-file | File to a topic or description | nextjs/fundamentals.md | ☑️                   |
-| output-dir | .temp                          | .out                   | **default** - `.out` |
+| Name        | Description                                                  | Example                | Required             |
+| ----------- | ------------------------------------------------------------ | ---------------------- | -------------------- |
+| topic-files | List of Files to a topic or description - separated by comma | nextjs/fundamentals.md | ☑️                   |
+| output-dir  | .temp                                                        | .out                   | **default** - `.out` |
 
 ### Environment variables
 
