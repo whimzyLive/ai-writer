@@ -6,4 +6,4 @@ echo ">>> Preparing blog writer..."
 
 ./src/main.py
 
-bash -c "set -e;  set -o pipefail; $1"
+# bash -c "set -e;  set -o pipefail; $1"
