@@ -13,7 +13,6 @@ env:
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 jobs:
   build:
-    permissions: 'read-all|write-all'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
