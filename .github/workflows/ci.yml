@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./        
-      with:
-        topic-file: 'example/nextjs/fundamentals.md'
-        output-dir: 'docs'
+    - uses: ./
+      run: ls -la
+      # with:
+      #   topic-file: 'example/nextjs/fundamentals.md'
+      #   output-dir: 'docs'
