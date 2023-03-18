@@ -33,6 +33,10 @@ def generate_response(input_file, output_dir):
     openai.api_key = api_key
     openai.api_type = api_type
 
+    print(f"api_base - {api_base}")
+    print(f"api_type - {api_type}")
+    print(f"api_key - {api_key}")
+
     # defining the system message
     system_message_template = "<|im_start|>system\n{}\n<|im_end|>"
     system_message = system_message_template.format(
