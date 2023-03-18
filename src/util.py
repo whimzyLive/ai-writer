@@ -16,5 +16,4 @@ def read_topic_and_content(input_file):
     input_file_stream = open(input_file, 'r')
     topic_content = input_file_stream.read()
 
-    print("....file read successful....")
     return {'topic_title': topic_title.replace('/', ' '), 'topic_content': topic_content}
