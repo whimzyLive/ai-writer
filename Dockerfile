@@ -1,6 +1,6 @@
 FROM python:3-slim
 
-COPY . /app
+ADD . /app
 WORKDIR /app
 
 RUN ls -la
