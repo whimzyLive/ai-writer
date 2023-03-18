@@ -13,6 +13,10 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.topic-files }}
+    - ${{ inputs.output-dir }}
+    - ${{ inputs.remove-prefix }}
 branding:
   icon: 'cpu'
   color: 'gray-dark'
