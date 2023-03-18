@@ -9,6 +9,8 @@ max_tokens = 4000
 def generate_response(input_file, output_dir):
     gpt_engine = os.getenv('OPENAI_ENGINE', "")
     api_base = os.getenv('OPENAI_API_BASE', "")
+    api_key = os.getenv('OPENAI_API_KEY', "")
+    api_type = os.getenv('OPENAI_API_TYPE', "")
 
     if (gpt_engine == ""):
         print('Missing required value for environment "OPENAI_ENGINE"')
@@ -18,8 +20,18 @@ def generate_response(input_file, output_dir):
         print('Missing required value for environment "OPENAI_API_BASE"')
         sys.exit()
 
+    if (api_key == ""):
+        print('Missing required value for environment "OPENAI_API_KEY"')
+        sys.exit()
+
+    if (api_type == ""):
+        print('Missing required value for environment "OPENAI_API_TYPE"')
+        sys.exit()
+
     # Overwrite config
     openai.api_base = api_base
+    openai.api_key = api_key
+    openai.api_type = api_type
 
     # defining the system message
     system_message_template = "<|im_start|>system\n{}\n<|im_end|>"
