@@ -62,9 +62,7 @@ def generate_response(input_file, output_dir):
 
     out_file = os.path.join(output_dir, input_file)
     os.makedirs(os.path.dirname(out_file), exist_ok=True)
-    print("....dirs created....")
 
     f = open(out_file, 'w')
-    print("....output written....")
 
     f.write(response.choices[0].text)
