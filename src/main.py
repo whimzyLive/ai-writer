@@ -12,10 +12,6 @@ def main(argv):
     input_file = os.getenv('INPUT_TOPIC-FILE', "")
     output_dir = os.getenv('INPUT_OUTPUT-DIR', "")
 
-    print(">>>>>>>>>>>>>>")
-    print(os.getenv("OPENAI_API_BASE"))
-    print(">>>>>>>>>>>>>>")
-
     opts, args = getopt.getopt(argv, "hi:o:", ["input_file=", "output_dir="])
     for opt, arg in opts:
         if opt == '-h':
