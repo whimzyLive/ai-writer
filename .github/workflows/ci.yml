@@ -7,7 +7,7 @@ on:
     branches:
       - main
 env:
-  OPENAI_ENGINE: ${{ env.OPENAI_ENGINE }}
+  OPENAI_ENGINE: ${{ envs.OPENAI_ENGINE }}
   OPENAI_ENGINE_REP: ${{ vars.OPENAI_ENGINE_REP }}
 jobs:
   build:
