@@ -25,7 +25,7 @@ def generate_response(input_file, output_dir):
     topic_title = extracted_dict.get("topic_title")
     topic_content = extracted_dict.get("topic_content")
 
-    print(f'Writing blog post on {topic_title}')
+    print(f'Writing blog post on {topic_title}...')
 
     if (topic_title == ""):
         print("Unable to infer the topic name from the given file path, please provide a valid file path.")
