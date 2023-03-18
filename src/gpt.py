@@ -20,7 +20,7 @@ def generate_response(input_file, output_dir, remove_prefix):
     )
 
     # create topic text template
-    topic_text_template = "Write a blog post on {}\n covering following topics and their basics\n{}.\nFollow Github flavoured Markdown specifications, add appropriate headings and always include code examples. Generated blog must comply with https://github.com/DavidAnson/markdownlint"
+    topic_text_template = "Write a blog post on {}\n covering following topics and their basics\n{}.\nAlways use Github flavoured Markdown specifications, add appropriate headings and always include code examples. Generated blog must comply with https://github.com/DavidAnson/markdownlint"
     extracted_dict = util.read_topic_and_content(input_file)
     topic_title = extracted_dict.get("topic_title")
     topic_content = extracted_dict.get("topic_content")
