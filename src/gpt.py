@@ -19,7 +19,7 @@ def generate_response(input_file, output_dir):
         sys.exit()
 
     # Overwrite config
-    openai.api_type = api_base
+    openai.api_base = api_base
 
     # defining the system message
     system_message_template = "<|im_start|>system\n{}\n<|im_end|>"
