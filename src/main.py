@@ -9,8 +9,8 @@ import os
 
 
 def main(argv):
-    input_file = os.getenv('INPUT_TOPIC_FILE', "")
-    output_dir = os.getenv('INPUT_OUTPUT_DIR', "")
+    input_file = os.getenv('INPUT_TOPIC-FILE', "")
+    output_dir = os.getenv('INPUT_OUTPUT-DIR', "")
 
     opts, args = getopt.getopt(argv, "hi:o:", ["input_file=", "output_dir="])
     for opt, arg in opts:
