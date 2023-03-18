@@ -1,122 +1,211 @@
-# Next.js Fundamentals: Building Enterprise Applications with React
-
-If you are looking to build an enterprise application with React, Next.js is a framework that you should consider using. It provides a lot of useful features, including routing, layout, automatic font hosting, and data fetching. In this post, we'll discuss the key features of Next.js and their basics.
+# Next.js Fundamentals
 
 ## Introduction
 
-Next.js is a framework that allows you to build server-rendered React applications with ease. It supports both client-side and server-side rendering and provides a lot of useful features out of the box. Some of the key benefits of using Next.js include automatic code splitting, optimized performance, and easy deployment.
+Next.js is a popular framework for building enterprise applications with React. It offers a lot of benefits, such as built-in server-side rendering, automatic code splitting, and optimized performance. In this guide, we'll cover the basics of Next.js and explore its key features.
 
 ## Key Points
 
 ### Page
 
-Next.js uses a file-based routing system. This means that you can create a file in the pages directory and that file will become a route that users can access. For example, if you create a file called `about.js` in the pages directory, you can access that page at `/about`.
+The `Page` component is used for basic routing in Next.js. By creating a file named `pages/example.js`, you can create a route for the URL `/example`. Here's an example of a simple page component:
+
+```jsx
+function ExamplePage() {
+  return <h1>Hello, World!</h1>;
+}
+
+export default ExamplePage;
+```
 
 ### Link
 
-The Link component in Next.js is used for client-side navigation. It automatically prefetches content so that when a user clicks on a link, the next page is loaded instantly. This provides a seamless browsing experience for users. 
+The `Link` component is used to provide client-side navigation with server-side routing. It also automatically prefetches content, making navigation faster for users. Here's an example of how to use the `Link` component:
 
-```javascript
-import Link from 'next/link'
+```jsx
+import Link from 'next/link';
 
-<Link href="/about">
-  <a>About Us</a>
-</Link>
+function HomePage() {
+  return (
+    <>
+      <h1>Welcome to my site!</h1>
+      <Link href="/example">
+        <a>Go to Example Page</a>
+      </Link>
+    </>
+  );
+}
+
+export default HomePage;
 ```
 
 ### Layout
 
-Next.js provides a layout system that allows you to share layout components between pages. You can create a `_app.js` file in the pages directory and define your layout there. 
+The `Layout` component is used for page and folder-based layout sharing. You can create a `Layout` component to provide a consistent look and feel across all pages of your application. Here's an example of how to use the `Layout` component:
 
-```javascript
-function MyApp({ Component, pageProps }) {
+```jsx
+import Layout from '../components/Layout';
+
+function ExamplePage() {
   return (
     <Layout>
-      <Component {...pageProps} />
+      <h1>Hello, World!</h1>
     </Layout>
-  )
+  );
 }
 
-export default MyApp
+export default ExamplePage;
 ```
 
 ### Fonts
 
-Next.js automatically hosts and serves fonts for you. You can load fonts from `@next/font/{google|local}`. For example, to load the Roboto font from Google, you would use the following code:
+Next.js automatically hosts and serves fonts. You can load fonts from the `@next/font/{google|local}` package. Here's an example of how to load a font from the `@next/font/google` package:
 
-```javascript
-import "@next/font/google/roboto.css"
+```jsx
+import { Global } from '@emotion/react';
+import { GoogleFont } from 'next/font/google';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <GoogleFont href="https://fonts.googleapis.com/css2?family=Roboto" />
+      <Global
+        styles={`
+          body {
+            font-family: 'Roboto', sans-serif;
+          }
+        `}
+      />
+      <Component {...pageProps} />
+    </>
+  );
+}
+
+export default MyApp;
 ```
 
 ### Style
 
-Next.js provides a style system that scopes styles to the nested page. This means that styles defined in one page do not affect other pages. 
+The `style` attribute in Next.js scopes styles to the nested page. This helps to prevent CSS collisions between different components. Here's an example of how to use the `style` attribute:
 
-```javascript
-import styles from './about.module.css'
-
-function About() {
-  return <div className={styles.container}>About Us</div>
+```jsx
+function ExamplePage() {
+  return (
+    <div style={{ backgroundColor: 'blue', color: 'white' }}>
+      <h1>Hello, World!</h1>
+    </div>
+  );
 }
+
+export default ExamplePage;
 ```
 
 ### Global Style
 
-Global styles need to be imported into the global layout file. For example, to import a global CSS file, you would use the following code:
+Global styles need to be imported into the global layout file. Here's an example of how to import global styles:
 
-```javascript
-import '../styles/global.css'
+```jsx
+import { Global } from '@emotion/react';
+
+function Layout({ children }) {
+  return (
+    <>
+      <Global
+        styles={`
+          body {
+            background-color: #f0f0f0;
+          }
+        `}
+      />
+      {children}
+    </>
+  );
+}
+
+export default Layout;
 ```
 
 ### Image
 
-Next.js provides a built-in image component that optimizes image sizes and ensures visual stability. 
+Next.js has built-in image optimization features, such as size optimization and visual stability. Here's an example of how to use the `Image` component:
 
-```javascript
-import Image from 'next/image'
+```jsx
+import Image from 'next/image';
 
-function About() {
-  return <Image src="/image.jpg" width={500} height={500} alt="image" />
+function ExamplePage() {
+  return (
+    <>
+      <h1>Hello, World!</h1>
+      <Image src="/example.png" alt="Example Image" width={300} height={300} />
+    </>
+  );
 }
+
+export default ExamplePage;
 ```
 
 ### Static Data Fetching
 
-Next.js supports static site generation, which means that it can generate HTML pages at build time. This can improve performance and reduce server load. 
+Next.js has support for static site generation, which is useful for building static pages. You can use the default `fetch` API in Next.js to fetch data. The response is cached by default. Here's an example of how to fetch data statically:
 
-```javascript
+```jsx
 export async function getStaticProps() {
-  const data = await fetch('https://api.example.com/data')
-  const jsonData = await data.json()
+  const data = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const posts = await data.json();
 
   return {
-    props: {
-      data: jsonData
-    },
-    revalidate: 60 // regenerates the page every 60 seconds
-  }
+    props: { posts },
+  };
 }
+
+function ExamplePage({ posts }) {
+  return (
+    <>
+      <h1>Hello, World!</h1>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </div>
+      ))}
+    </>
+  );
+}
+
+export default ExamplePage;
 ```
 
 ### Dynamic Data Fetching
 
-Next.js supports dynamic data fetching, which means that it can fetch data at runtime. By default, the fetch API in Next.js caches responses. If you want to disable caching, you can use the `cache: "no-store"` option.
+Next.js also supports dynamic data fetching, which is useful for building dynamic pages. You can use the `cache: "no-store"` option on the `fetch` API to prevent caching. Here's an example of how to fetch data dynamically:
 
-```javascript
+```jsx
 export async function getServerSideProps() {
-  const data = await fetch('https://api.example.com/data', {
-    cache: "no-store"
-  })
-  const jsonData = await data.json()
+  const data = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const posts = await data.json();
 
   return {
-    props: {
-      data: jsonData
-    }
-  }
+    props: { posts },
+  };
 }
+
+function ExamplePage({ posts }) {
+  return (
+    <>
+      <h1>Hello, World!</h1>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </div>
+      ))}
+    </>
+  );
+}
+
+export default ExamplePage;
 ```
 
 ## Conclusion
 
-Next.js is a powerful framework for building enterprise applications with React. It provides a lot of useful features out of the box, including routing, layout, automatic font hosting, and data fetching. By using Next.js, you can build high-performance applications with ease.
+Next.js is a powerful framework for building enterprise applications with React. Its built-in features, such as server-side rendering, automatic code splitting, and optimized performance, make it a popular choice for developers. By understanding the key points covered in this guide, you'll be able to build robust and scalable applications with Next.js.
