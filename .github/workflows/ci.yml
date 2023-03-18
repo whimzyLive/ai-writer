@@ -20,3 +20,4 @@ jobs:
       with:
         topic-file: 'nextjs/fundamentals.md'
         output-dir: 'docs'
+    - uses: stefanzweifel/git-auto-commit-action@v4
