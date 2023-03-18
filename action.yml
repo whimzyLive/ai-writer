@@ -1,8 +1,8 @@
 name: 'AI Blog Writer'
 description: 'Boost Your Blogging Efficiency with GitHub Actions and AI Blog Writer'
 inputs:
-  topic-file:  # Input file containing topic (can be in .txt/.md files)
-    description: '"input-file" must be an full relative path from the root of the project - nextjs/fundamentals.md'
+  topic-files:  # List of Input files containing topics (can be in .txt/.md)
+    description: '"input-files" must be an full relative paths from the root of the project - nextjs/fundamentals.md'
     required: true
   output-dir:  # Output dir to write generated blog (when an file is written to the specified output, file name structure is preserved)
     description: '"output-dir" represents the name of the folder where the blog will be written - always writes in github flavoured markdown'

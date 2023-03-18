@@ -9,7 +9,7 @@ import os
 
 
 def main(argv):
-    input_file = os.getenv('INPUT_TOPIC-FILE', "")
+    input_files = os.getenv('INPUT_TOPIC-FILES', "").split(",")
     output_dir = os.getenv('INPUT_OUTPUT-DIR', "")
 
     opts, args = getopt.getopt(argv, "hi:o:", ["input_file=", "output_dir="])
@@ -21,18 +21,25 @@ def main(argv):
             print('main.py --input_file <input_file> --output_dir <output_dir>')
             sys.exit()
         elif opt in ("-i", "--input_file"):
-            input_file = arg
+            if (len(arg.split(',')) > 1):
+                input_files.extend(arg.split(','))
+            else:
+                input_files.append(arg)
         elif opt in ("-o", "--output_dir"):
             output_dir = arg
 
-    if (input_file == ""):
-        print('Missing required Input file, please run -h or --help for more information')
+    input_files = list(filter(None, input_files))
+    if (len(input_files) == 0):
+        print('Missing required Input files, please run -h or --help for more information')
         sys.exit()
 
     if (output_dir == ""):
         output_dir = ".out"
 
-    gpt.generate_response(input_file, output_dir)
+    print(f"Files detected: {input_files}")
+
+    for input_file in input_files:
+        gpt.generate_response(input_file, output_dir)
 
 
 if __name__ == "__main__":
