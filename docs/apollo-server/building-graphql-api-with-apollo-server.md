@@ -2,76 +2,128 @@
 
 ## Introduction
 
-GraphQL has taken the world of APIs by storm. One of the most popular implementations of GraphQL on Node.js is Apollo Server. In this blog, we'll go over the basics of building a GraphQL API with Apollo Server.
+GraphQL is a query language and runtime for APIs that was developed by Facebook. It allows clients to request only the data that they need from an API, which can lead to faster and more efficient data fetching. Apollo is a popular open-source implementation of GraphQL for Node.js and is commonly used for building APIs.
 
-## What is Apollo in Node.js
+In this blog post, we will be discussing the basics of building a GraphQL API with Apollo Server, including what Apollo is and how to work with it.
 
-Apollo Server is a library that helps you build a GraphQL API on Node.js. It's built on top of the graphql-js library, which is a popular implementation of GraphQL on JavaScript.
+## What is Apollo
+
+Apollo is a set of libraries and tools that can be used to build GraphQL APIs. It includes Apollo Server, which is a production-ready GraphQL server that can be used with any JavaScript HTTP server framework. Apollo also provides client libraries that make it easy to consume GraphQL APIs from web and mobile apps.
 
 ## Working with Apollo
 
-### Setting up Apollo
+### Setting up Apollo Server
 
-To get started with Apollo Server, first, install the necessary packages. Run the following command to install the dependencies:
+To get started with Apollo Server, we need to install the `apollo-server` npm package. This can be done by running the following command in your terminal:
 
-```bash
-npm install apollo-server graphql
+```
+npm install apollo-server
 ```
 
-Once you have the packages installed, you can create an Apollo Server by importing the `ApolloServer` class from the `apollo-server` package.
+Once installed, we can create a new instance of Apollo Server by passing in a configuration object. Here's an example:
 
 ```javascript
-const { ApolloServer } = require('apollo-server');
-```
+const { ApolloServer, gql } = require('apollo-server');
 
-### Defining a Schema
-
-The next step is to define a schema for your API. A schema is essentially a contract between the server and the client that specifies what types of data the server can provide. You can define a schema using the `typeDefs` and `resolvers` properties of the `ApolloServer` class.
-
-```javascript
-const typeDefs = `
+// Define our GraphQL schema using the gql tag
+const typeDefs = gql`
   type Query {
     hello: String
   }
 `;
 
+// Define a resolver for our query
 const resolvers = {
   Query: {
-    hello: () => 'Hello World!'
-  }
+    hello: () => 'Hello world!',
+  },
 };
 
+// Create a new instance of ApolloServer
 const server = new ApolloServer({ typeDefs, resolvers });
-```
 
-In this example, we're defining a simple schema that exposes a single query called `hello` that returns the string `Hello World!`.
-
-### Running the Server
-
-Once you have defined your schema, you can start the server by calling the `listen` method on the `ApolloServer` instance.
-
-```javascript
+// Start the server
 server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
+  console.log(`Server ready at ${url}`);
 });
 ```
 
-This will start the Apollo Server and log the URL where it's running to the console.
+In this example, we're defining a simple GraphQL schema that includes a single query called `hello` that returns a string. We've also defined a resolver for the `hello` query that returns the string `'Hello world!'`. Finally, we create a new instance of ApolloServer and start it listening on a port.
 
-### Using GraphQL Studio
+### Using GraphQL Playground
 
-Apollo Server comes with a built-in GraphQL IDE called GraphQL Studio. You can access it by visiting the URL where your Apollo Server is running and appending `/graphql` to the end of it.
+When we start Apollo Server, it automatically launches a GraphQL playground, which is a web-based IDE that can be used to interact with our API. The playground can be accessed by navigating to `http://localhost:4000` in a web browser (assuming we're running our server on port 4000).
 
-![GraphQL Studio](https://i.imgur.com/3wVhVIH.png)
+Using the playground, we can explore our API and execute queries. For example, we could execute the following query:
+
+```graphql
+query {
+  hello
+}
+```
+
+This should return the following response:
+
+```json
+{
+  "data": {
+    "hello": "Hello world!"
+  }
+}
+```
 
 ### Introspection
 
-One of the powerful features of GraphQL is introspection. This allows you to query the API schema at runtime to see what queries, types, fields, and directives it supports. To enable introspection, set the `introspection` property to `true` when creating your `ApolloServer` instance.
+One of the key benefits of using GraphQL is its introspection capabilities. Introspection refers to the ability to query which resources are available in the current API schema. Using introspection, we can see the queries, types, fields and directives that our API supports.
 
-```javascript
-const server = new ApolloServer({ typeDefs, resolvers, introspection: true });
+Apollo provides a built-in `introspection` query that can be used to retrieve the current schema of our API. We can execute this query in GraphQL Playground by clicking the "Schema" tab and then clicking the "Introspection" button.
+
+Here's an example of what the `introspection` query response might look like:
+
+```json
+{
+  "__schema": {
+    "queryType": {
+      "name": "Query"
+    },
+    "types": [
+      {
+        "kind": "OBJECT",
+        "name": "Query",
+        "fields": [
+          {
+            "name": "hello",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ]
+      },
+      {
+        "kind": "SCALAR",
+        "name": "String",
+        "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text."
+      }
+    ]
+  }
+}
 ```
+
+This response tells us that our API has a single query called `hello`, which returns a string. We can use this information to build more complex queries and to better understand the capabilities of our API.
 
 ## Conclusion
 
-Apollo Server makes it easy to build a GraphQL API on Node.js. With built-in GraphQL Studio and introspection support, it's a great choice for building APIs of any size.
+In this blog post, we've covered the basics of building a GraphQL API with Apollo Server. We've discussed what Apollo is, how to set up a basic server with Apollo, and how to use GraphQL Playground and introspection to explore our API.
+
+GraphQL and Apollo provide a powerful way to build APIs that are flexible, efficient, and easy to consume. By using these technologies, we can create APIs that meet the needs of our clients and provide a great developer experience.
+
+## Additional Resources
+
+- [Apollo Server Documentation](https://www.apollographql.com/docs/apollo-server/)
+- [GraphQL Documentation](https://graphql.org/learn/)
+- [GraphQL Playground Documentation](https://github.com/graphql/graphql-playground)
