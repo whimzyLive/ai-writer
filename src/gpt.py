@@ -21,7 +21,7 @@ def generate_response(input_file, output_dir, remove_prefix):
 
     # create topic text template
     topic_text_template = "Write a blog post on {}\n covering following topics and their basics\n{}.\nAlways use Github flavoured Markdown specifications, add appropriate headings and always include code examples. Generated blog must comply with https://github.com/DavidAnson/markdownlint"
-    extracted_dict = util.read_topic_and_content(input_file)
+    extracted_dict = util.read_topic_and_content(input_file, remove_prefix)
     topic_title = extracted_dict.get("topic_title")
     topic_content = extracted_dict.get("topic_content")
 
@@ -41,7 +41,7 @@ def generate_response(input_file, output_dir, remove_prefix):
     messages = [
         {
             "sender": "user",
-            "text": "Prompt template {}\n.".format(topic_template.get('topic_content'))},
+            "text": "If possible use the following response template {}\n.".format(topic_template.get('topic_content'))},
         {
             "sender": "user",
             "text": topic_text_template.format(topic_title, topic_content)

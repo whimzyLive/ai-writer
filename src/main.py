@@ -13,7 +13,8 @@ def main(argv):
     output_dir = os.getenv('INPUT_OUTPUT-DIR', "")
     remove_prefix = os.getenv('INPUT_REMOVE-PREFIX', "")
 
-    opts, args = getopt.getopt(argv, "hi:o:", ["input_file=", "output_dir="])
+    opts, args = getopt.getopt(
+        argv, "hi:o:r:", ["input_files=", "output_dir=", "remove_prefix="])
     for opt, arg in opts:
         if opt == '-h':
             print('main.py -i <input_file> -o <output_dir>')
@@ -28,7 +29,7 @@ def main(argv):
                 input_files.append(arg)
         elif opt in ("-o", "--output_dir"):
             output_dir = arg
-        elif opt in ("-rp", "--remove_prefix"):
+        elif opt in ("-r", "--remove_prefix"):
             remove_prefix = arg
 
     input_files = list(filter(None, input_files))

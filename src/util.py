@@ -10,10 +10,10 @@ def create_prompt(system_message, messages):
     return prompt
 
 
-def read_topic_and_content(input_file):
+def read_topic_and_content(input_file, remove_prefix=''):
     topic_title = os.path.splitext(input_file)[0]
 
     input_file_stream = open(input_file, 'r')
     topic_content = input_file_stream.read()
 
-    return {'topic_title': topic_title.replace('/', ' '), 'topic_content': topic_content}
+    return {'topic_title': topic_title.removeprefix(remove_prefix).replace('/', ' '), 'topic_content': topic_content}

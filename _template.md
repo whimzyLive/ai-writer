@@ -1,27 +1,32 @@
-<!-- !!NOTE It is not mandatory to use this template when using ai-blog-writer, but doing so will produce more accurate blogs as the prompts are designed to work around this template -->
+# Title of your Blog Post
 
-# {{title}}
-
-<!-- This section contains introduction -->
+<!-- Start with an interesting hook that draws readers in and introduces the topic of your blog post. Provide a brief overview of what your post will cover and why it matters. -->
 
 ## Introduction
 
-{{ Introduction of the topic }}
+<!-- This section is optional -->
+<!-- Provide context for your topic by sharing relevant background information. This can include statistics, historical information, or other important details that help readers understand the topic. -->
 
-<!-- This section contains key points of the topic which should be included in the generated blog -->
+## Background Information
 
-## Key Points
+## Main Points
 
-{{ List of key points to include }}
+<!-- Write a few paragraphs explaining your first main point or subtopic. -->
 
-<!-- These are the few examples that must be added to the generated blog -->
+### Point {n}: Descriptive Heading
 
-## Examples
+<!-- - Example {n}: Describe with a code example -->
 
-{{ Any examples that must be included include }}
+#### Example
 
-<!-- Conclusion points to include in the blog -->
+<!-- Summarize your main points and reiterate the importance of your topic. End with a call to action or a question to encourage readers to engage with your post. -->
 
 ## Conclusion
 
-{{ Conclusion message }}
+<!-- Include links to additional resources or related blog posts that readers may find useful. -->
+
+## Additional Resources
+
+---
+
+<!-- Remember to use Github-flavored Markdown syntax to format your blog post. You can include headers, bold and italic text, links, images, and code snippets to make your post more visually appealing and easier to read. By including specific examples, you can help illustrate your points and make your blog post more engaging for your readers. -->
