@@ -1,6 +1,6 @@
 # Building a GraphQL API with Apollo Sever
 
-## What is Apollo in Nodejs
+## What is Apollo
 
 Apollo is a node.js implementation of GraphQL.
 
