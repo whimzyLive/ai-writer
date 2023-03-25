@@ -1,256 +1,241 @@
-# Next.JS Fundamentals
+# Next.js Fundamentals
 
 ## Introduction
 
-Next.js is a framework built on top of React that provides a set of tools and conventions to simplify the development of enterprise applications. It allows developers to build high-performance web applications with server-rendered React views and automatic code splitting out of the box.
+Next.js is a popular open-source framework for building enterprise-level applications with React. It provides a set of powerful features and tools that can help you develop modern web applications faster, easier, and more efficiently.
+
+In this post, we will explore some of the basic Next.js fundamentals that are essential for building scalable and robust applications. We will cover several key points such as page, link, layout, fonts, style, image, static data fetching, and dynamic data fetching.
 
 ## Key Points
 
 ### Page
 
-A page is a React component that is automatically routed based on the file system. Next.js expects pages to be located in the `pages` directory and named according to their file name. For example, if we create a file named `about.js` inside the `pages` directory, Next.js will automatically create a route to `/about`.
+Next.js uses a file-based routing system, which means that every page in your application corresponds to a file in the pages directory. For example, if you create a file called `about.js` in the `pages` directory, you can access it at `/about`.
 
 ```jsx
-// pages/about.js
+// Example of a Next.js page component
+import React from 'react';
 
-function About() {
-  return <h1>About us</h1>
-}
+const AboutPage = () => {
+  return (
+    <div>
+      <h1>About Us</h1>
+      <p>We are a company that does cool stuff.</p>
+    </div>
+  );
+};
 
-export default About
+export default AboutPage;
 ```
 
 ### Link
 
-Link is a Next.js component that provides client-side navigation with server-side rendering. It automatically preloads the linked page's content in the background, so that when the user clicks on the link, the new page is loaded instantly.
+Next.js provides a `Link` component that allows you to navigate between pages without reloading the entire page. It also automatically prefetches the content of the linked page, which makes the navigation experience faster and smoother.
 
 ```jsx
-// pages/index.js
+// Example of a Next.js Link component
+import Link from 'next/link';
 
-import Link from 'next/link'
-
-function Home() {
+const HomePage = () => {
   return (
     <div>
-      <h1>Welcome to my website</h1>
+      <h1>Welcome to our website!</h1>
       <Link href="/about">
-        <a>About us</a>
+        <a>Learn more about us</a>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default HomePage;
 ```
 
 ### Layout
 
-Next.js provides a way to define a layout component that can be shared across pages. By convention, a layout component should be placed in the `components` directory and named `Layout`. Pages can then include the layout component and pass their own content as children.
+Next.js allows you to define layouts for your application that can be reused across multiple pages. You can create a `layout.js` file in your `pages` directory to define your layout component, and then use it in your pages by wrapping your content inside the layout component.
 
 ```jsx
-// components/Layout.js
+// Example of a Next.js layout component
+import React from 'react';
 
-function Layout({ children }) {
+const MainLayout = ({ children }) => {
   return (
     <div>
-      <header>My website</header>
+      <header>Header</header>
       <main>{children}</main>
-      <footer>© 2021 My website</footer>
+      <footer>Footer</footer>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
-```
-
-```jsx
-// pages/index.js
-
-import Layout from '../components/Layout'
-
-function Home() {
-  return (
-    <Layout>
-      <h1>Welcome to my website</h1>
-      <p>This is the home page</p>
-    </Layout>
-  )
-}
-
-export default Home
+export default MainLayout;
 ```
 
 ### Fonts
 
-Next.js automatically hosts and serves web fonts from Google Fonts or the local file system. To use a Google Font, simply import it from `@next/font/google` and add it to the `head` of the page.
+Next.js provides a built-in support for hosting and serving fonts. You can load your fonts from the `@next/font/{google|local}` package and use them in your styles.
 
-```jsx
-// pages/index.js
-
-import Head from 'next/head'
-import { Inter } from '@next/font/google'
-
-function Home() {
-  return (
-    <>
-      <Head>
-        <title>My website</title>
-        <Inter />
-      </Head>
-      <h1>Welcome to my website</h1>
-      <p>This is the home page</p>
-    </>
-  )
+```css
+/* Example of using Next.js fonts */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('@next/font-googleMontserrat-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
-
-export default Home
 ```
 
 ### Style
 
-Next.js provides a way to scope styles to a single page or component. Styles can be defined using CSS modules or CSS-in-JS libraries like styled-components.
+Next.js provides scoped styles by default, which means that your styles are automatically isolated to the page or component that they belong to. You can define your styles using CSS-in-JS libraries like styled-components, emotion, or CSS modules.
 
 ```jsx
-// pages/index.module.css
+// Example of using styled-components with Next.js
+import styled from 'styled-components';
 
-.title {
-  color: red;
-}
+const StyledButton = styled.button`
+  background-color: ${props => (props.primary ? 'blue' : 'white')};
+  color: ${props => (props.primary ? 'white' : 'blue')};
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+`;
 
-// pages/index.js
-
-import styles from './index.module.css'
-
-function Home() {
+const HomePage = () => {
   return (
     <div>
-      <h1 className={styles.title}>Welcome to my website</h1>
-      <p>This is the home page</p>
+      <h1>Welcome to our website!</h1>
+      <StyledButton primary>Get started</StyledButton>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default HomePage;
 ```
 
 ### Global Style
 
-To apply global styles to all pages, create a file named `_app.js` in the `pages` directory and import the global styles.
+If you need to define global styles that should be applied across all pages, you can import them in your `_app.js` file, which is the root component of your application.
 
 ```jsx
-// pages/_app.js
+// Example of importing global styles in Next.js
+import React from 'react';
+import App from 'next/app';
+import { createGlobalStyle } from 'styled-components';
 
-import '../styles/global.css'
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+`;
 
-export default function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
+      <>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </>
+    );
+  }
 }
+
+export default MyApp;
 ```
 
 ### Image
 
-Next.js provides an optimized image component that automatically resizes and optimizes images based on the device size and resolution. Images can be loaded from the local file system or from an external URL.
+Next.js provides built-in image optimization features that can improve the performance and visual stability of your application. It automatically optimizes the size and format of your images based on the device and screen size, and also supports lazy loading and priority loading.
 
 ```jsx
-// pages/index.js
+// Example of using the Next.js Image component
+import Image from 'next/image';
 
-import Image from 'next/image'
-
-function Home() {
+const HomePage = () => {
   return (
     <div>
-      <Image src="/my-image.png" width={500} height={500} alt="My image" />
+      <h1>Welcome to our website!</h1>
+      <Image
+        src="/images/hero.jpg"
+        alt="Hero image"
+        width={1200}
+        height={600}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default HomePage;
 ```
 
 ### Static Data Fetching
 
-Next.js provides a way to generate static HTML files for pages that do not require server-side rendering. This is useful for pages that do not need to be updated frequently or that have a lot of traffic.
+Next.js provides support for static site generation (SSG), which allows you to pre-render your pages at build time and serve them as static HTML files. You can use the `getStaticProps` function to fetch data for your pages at build time.
 
 ```jsx
-// pages/about.js
-
-function About({ data }) {
-  return (
-    <div>
-      <h1>About us</h1>
-      <p>{data}</p>
-    </div>
-  )
-}
-
+// Example of using getStaticProps with Next.js
 export async function getStaticProps() {
-  const res = await fetch('https://api.example.com/data')
-  const data = await res.text()
-
+  const res = await fetch('https://api.example.com/data');
+  const data = await res.json();
   return {
     props: {
-      data
+      data,
     },
-    revalidate: 1 // regenerate the page every second
-  }
+    revalidate: 60, // revalidate every 60 seconds
+  };
 }
 
-export default About
+const HomePage = ({ data }) => {
+  return (
+    <div>
+      <h1>Welcome to our website!</h1>
+      <p>{data.message}</p>
+    </div>
+  );
+};
+
+export default HomePage;
 ```
 
 ### Dynamic Data Fetching
 
-Next.js provides a way to fetch data from external APIs on the client-side. To prevent the browser from caching the data, we can use the `cache: 'no-store'` option on the `fetch` API.
+Next.js also supports dynamic data fetching, which allows you to fetch data for your pages at runtime. You can use the `getServerSideProps` function to fetch data for your pages on the server-side.
 
 ```jsx
-// pages/products.js
-
-import { useState } from 'react'
-
-function Products({ products }) {
-  const [selectedProduct, setSelectedProduct] = useState(null)
-
-  return (
-    <div>
-      <h1>Products</h1>
-      <ul>
-        {products.map(product => (
-          <li key={product.id}>
-            <button onClick={() => setSelectedProduct(product)}>
-              {product.name}
-            </button>
-          </li>
-        ))}
-      </ul>
-      {selectedProduct && (
-        <div>
-          <h2>{selectedProduct.name}</h2>
-          <p>{selectedProduct.description}</p>
-        </div>
-      )}
-    </div>
-  )
-}
-
-export async function getServerSideProps() {
-  const res = await fetch('https://api.example.com/products', { cache: 'no-store' })
-  const products = await res.json()
-
+// Example of using getServerSideProps with Next.js
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  const res = await fetch(`https://api.example.com/data/${id}`, {
+    headers: {
+      'Cache-Control': 'no-store', // disable caching
+    },
+  });
+  const data = await res.json();
   return {
     props: {
-      products
-    }
-  }
+      data,
+    },
+  };
 }
 
-export default Products
+const PostPage = ({ data }) => {
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      <p>{data.content}</p>
+    </div>
+  );
+};
+
+export default PostPage;
 ```
 
 ## Conclusion
 
-Next.js is a powerful framework that provides a set of tools and conventions to simplify the development of enterprise applications with React. With Next.js, developers can build high-performance web applications with server-rendered views, automatic code splitting, and advanced data fetching capabilities. By following these fundamentals, developers can build scalable and maintainable applications with ease.
+In this post, we have covered some of the key Next.js fundamentals that are essential for building modern web applications with React. We have explored several important features such as page, link, layout, fonts, style, image, static data fetching, and dynamic data fetching. By mastering these fundamentals, you will be able to build scalable and robust applications with Next.js.
 
-## Additional Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Next.js GitHub Repository](https://github.com/vercel/next.js)
+If you want to learn more about Next.js, be sure to check out the official documentation and other online resources. Happy coding!
