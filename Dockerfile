@@ -8,4 +8,4 @@ COPY src/ /src/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/src/main.py"]
