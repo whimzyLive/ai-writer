@@ -23,4 +23,5 @@ jobs:
       with:
         topic-files: ${{ github.event.inputs.file }}
         output-dir: 'docs'
+        remove-prefix: 'examples/'
     - uses: stefanzweifel/git-auto-commit-action@v4
