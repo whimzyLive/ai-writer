@@ -9,7 +9,7 @@ inputs:
     default: ".out"
   remove-prefix:
     description: '"remove-prefix" represents the prefix to remove from output dir location (i.e if input files are under examples/x.md, this can be "examples/")'
-    default: ".out"    
+    default: ""    
 runs:
   using: 'docker'
   image: 'Dockerfile'
