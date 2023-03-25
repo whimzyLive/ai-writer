@@ -1,0 +1,26 @@
+name: 'Manual Trigger Test'
+on:
+  workflow_dispatch:
+    inputs:
+      file: 
+        description: "Input file containing blog content or overview"
+        default: ""
+env:
+  OPENAI_API_TYPE: ${{ vars.OPENAI_API_TYPE }}
+  OPENAI_API_BASE: ${{ vars.OPENAI_API_BASE }}
+  OPENAI_ENGINE: ${{ vars.OPENAI_ENGINE }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    # Run on manual trigger
+    - if: ${{ github.event.inputs.file != '' }}
+      uses: whimzyLive/ai-writer@v0.1.0
+      with:
+        topic-files: ${{ github.event.inputs.file }}
+        output-dir: 'docs'
+    - uses: stefanzweifel/git-auto-commit-action@v4
