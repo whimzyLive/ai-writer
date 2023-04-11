@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A framework for building enterprise applications with react.
+A framework for building enterprise applications with react
 
 ## Key Points
 
