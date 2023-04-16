@@ -1,4 +1,4 @@
-# Next.JS
+# Next.JS Fundamentals
 
 ## Introduction
 
